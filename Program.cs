@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace AdventOfCode2019
+namespace AdventOfCode2020
 {
     class Program
     {
@@ -20,9 +20,9 @@ namespace AdventOfCode2019
 
             switch (dayToRun)
             {
-                //case 1:
-                //    Day1.Start(readFile);
-                //    break;
+                case 1:
+                    Day1.Start(readFile);
+                    break;
 
                 default:
                     Console.WriteLine("That day is not supported yet");
