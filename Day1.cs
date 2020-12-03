@@ -39,7 +39,7 @@ namespace AdventOfCode2020
 
         public static void Start(string readFile)
         {
-            List<string> input = File.ReadAllLines(readFile + "Day1").ToList();
+            List<string> input = File.ReadAllLines(readFile).ToList();
             List<int> intInput = input.Select(int.Parse).ToList();
 
             int result = Part1(intInput);

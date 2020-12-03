@@ -13,10 +13,10 @@ namespace AdventOfCode2020
             string cwd = Directory.GetCurrentDirectory();
             string readFile;
 
-            if (cwd.EndsWith('9'))
-                readFile = "Inputs//";
+            if (cwd.EndsWith('0'))
+                readFile = $"Inputs//Day{dayToRun}";
             else
-                readFile = "..//..//..//Inputs//";
+                readFile = $"..//..//..//Inputs//Day{dayToRun}";
 
             switch (dayToRun)
             {

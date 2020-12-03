@@ -84,7 +84,7 @@ namespace AdventOfCode2020
 
         public static void Start(string readFile)
         {
-            List<string> input = File.ReadAllLines(readFile + "Day2").ToList();
+            List<string> input = File.ReadAllLines(readFile).ToList();
             //List<string> input = new List<string> { "1-3 a: abcde", "1-3 b: cdefg", "2-9 c: ccccccccc" };
             Part1(input);
 
