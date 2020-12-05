@@ -36,6 +36,10 @@ namespace AdventOfCode2020
                     Day4.Start(readFile);
                     break;
 
+                case 5:
+                    Day5.Start(readFile);
+                    break;
+
                 default:
                     Console.WriteLine("That day is not supported yet");
                     break;
