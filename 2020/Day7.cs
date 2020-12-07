@@ -1,13 +1,15 @@
-﻿using System;
+﻿using AdventOfCode.Helpers;
+using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace AdventOfCode2020
+namespace AdventOfCode._2020
 {
     public static class Day7
     {
+        private static List<string> Input => InputHelper.GetInputListString(2020, 7).ToList();
+
         public class Bag
         {
             public string BagName { get; set; }
@@ -16,11 +18,11 @@ namespace AdventOfCode2020
             public Dictionary<string, int> ContainsBagWithAmount { get; set; } = new Dictionary<string, int>();
         }
 
-        public static List<Bag> LoadBags(List<string> input)
+        public static List<Bag> LoadBags()
         {
             List<Bag> bags = new List<Bag>();
 
-            foreach(string line in input)
+            foreach(string line in Input)
             {
                 Bag bag = new Bag();
                 string[] splitted = line.Split(" bags contain");
@@ -85,18 +87,18 @@ namespace AdventOfCode2020
             }
         }
 
-        private static void Part1(List<string> input)
+        private static void Part1()
         {
-            List<Bag> bags = LoadBags(input);
+            List<Bag> bags = LoadBags();
 
             List<string> otherBags = CheckBags(bags.Where(x => x.BagName == "shiny gold").FirstOrDefault().IsContainedInBag, new List<string>());
 
             Console.WriteLine($"The amount of bag colors that can eventually contain at least one shiny gold bag is {otherBags.Distinct().Count()}");
         }
 
-        private static void Part2(List<string> input)
+        private static void Part2()
         {
-            List<Bag> bags = LoadBags(input);
+            List<Bag> bags = LoadBags();
 
             long amountOfBags = CountBags(bags.Where(x => x.BagName == "shiny gold").FirstOrDefault(), bags);
 
@@ -104,13 +106,11 @@ namespace AdventOfCode2020
         }
 
 
-        public static void Start(string readFile)
+        public static void Start()
         {
-            List<string> input = File.ReadAllLines(readFile).ToList();
+            Part1();
 
-            Part1(input);
-
-            Part2(input);
+            Part2();
         }
     }
 }

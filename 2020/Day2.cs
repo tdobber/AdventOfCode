@@ -1,22 +1,24 @@
-﻿using System;
+﻿using AdventOfCode.Helpers;
+using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 
-namespace AdventOfCode2020
+namespace AdventOfCode._2020
 {
-    public class PasswordEntry
-    {
-        public int LeftNumber { get; set; }
-        public int RightNumber { get; set; }
-        public char Letter { get; set; }
-        public string Password { get; set; }
-    }
 
     public static class Day2
     {
+        private static List<string> Input => InputHelper.GetInputListString(2020, 2).ToList();
+
+        public class PasswordEntry
+        {
+            public int LeftNumber { get; set; }
+            public int RightNumber { get; set; }
+            public char Letter { get; set; }
+            public string Password { get; set; }
+        }
+
         private static PasswordEntry MatchPassword(string password)
         {
             Match match = Regex.Match(password, @"^(?<minimum>\d+)-(?<maximum>\d+)\s+(?<letter>\w):\s+(?<password>\w+)");
@@ -35,10 +37,10 @@ namespace AdventOfCode2020
             return null;
         }
 
-        private static void Part1(List<string> input)
+        private static void Part1()
         {
             int valid = 0;
-            foreach (string passwordEntry in input)
+            foreach (string passwordEntry in Input)
             {
                 PasswordEntry entry = MatchPassword(passwordEntry);
 
@@ -59,10 +61,10 @@ namespace AdventOfCode2020
             Console.WriteLine($"The amount of valid passwords for part 1 is {valid}.");
         }
 
-        private static void Part2(List<string> input)
+        private static void Part2()
         {
             int valid = 0;
-            foreach (string passwordEntry in input)
+            foreach (string passwordEntry in Input)
             {
                 PasswordEntry entry = MatchPassword(passwordEntry);
                 if (entry != null)
@@ -82,13 +84,11 @@ namespace AdventOfCode2020
         }
 
 
-        public static void Start(string readFile)
+        public static void Start()
         {
-            List<string> input = File.ReadAllLines(readFile).ToList();
-            //List<string> input = new List<string> { "1-3 a: abcde", "1-3 b: cdefg", "2-9 c: ccccccccc" };
-            Part1(input);
+            Part1();
 
-            Part2(input);
+            Part2();
         }
     }
 }

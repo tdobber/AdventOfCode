@@ -1,56 +1,35 @@
-﻿using System;
-using System.IO;
+﻿using AdventOfCode._2018;
+using AdventOfCode._2019;
+using AdventOfCode._2020;
+using System;
 
-namespace AdventOfCode2020
+namespace AdventOfCode
 {
     class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Which day would you like to run?");
-            int dayToRun = Convert.ToInt16(Console.ReadLine());
+            Console.WriteLine("What would you like to run? (Example: 3-19 for day 3 of 2019, 8 for the current year day 8)");
 
-            string cwd = Directory.GetCurrentDirectory();
-            string readFile;
+            string[] input = Console.ReadLine().Split("-");
+            int dayToRun = Convert.ToInt16(input[0]);
+            int yearToRun = input.Length > 1 ? Convert.ToInt16(input[1]) : 0;
 
-            if (cwd.EndsWith('0'))
-                readFile = $"Inputs//Day{dayToRun}";
-            else
-                readFile = $"..//..//..//Inputs//Day{dayToRun}";
-
-            switch (dayToRun)
+            switch (yearToRun)
             {
-                case 1:
-                    Day1.Start(readFile);
+                case 18:
+                case 2018:
+                    Year2018.StartDay(dayToRun);
                     break;
 
-                case 2:
-                    Day2.Start(readFile);
-                    break;
-                
-                case 3:
-                    Day3.Start(readFile);
-                    break;
-                
-                case 4:
-                    Day4.Start(readFile);
-                    break;
-
-                case 5:
-                    Day5.Start(readFile);
-                    break;
-
-                case 6:
-                    Day6.Start(readFile);
-                    break;
-                
-                case 7:
-                    Day7.Start(readFile);
+                case 19:
+                case 2019:
+                    Year2019.StartDay(dayToRun);
                     break;
 
                 default:
-                    Console.WriteLine("That day is not supported yet");
-                    break;
+                    Year2020.StartDay(dayToRun);
+                        break;
             }
         }
     }

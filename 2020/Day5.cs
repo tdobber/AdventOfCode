@@ -1,12 +1,14 @@
-﻿using System;
+﻿using AdventOfCode.Helpers;
+using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 
-namespace AdventOfCode2020
+namespace AdventOfCode._2020
 {
     public static class Day5
     {
+        private static List<string> Input => InputHelper.GetInputListString(2020, 5).ToList();
+
         public class BoardingPass
         {
             public byte Row { get; set; }
@@ -20,11 +22,11 @@ namespace AdventOfCode2020
             }
         }
 
-        public static List<BoardingPass> ReadBoardingPasses(List<string> input)
+        public static List<BoardingPass> ReadBoardingPasses()
         {
             List<BoardingPass> boardingPasses = new List<BoardingPass>();
 
-            foreach(string line in input)
+            foreach(string line in Input)
             {
                 string binaryLine = line.Replace('F', '0').Replace('B', '1').Replace('L', '0').Replace('R', '1');
 
@@ -38,16 +40,16 @@ namespace AdventOfCode2020
             return boardingPasses;
         }
  
-        private static void Part1(List<string> input)
+        private static void Part1()
         {
-            List<BoardingPass> boardingPasses = ReadBoardingPasses(input);
+            List<BoardingPass> boardingPasses = ReadBoardingPasses();
 
             Console.WriteLine($"The highest seat id is {boardingPasses.Max(pass => pass.SeatId)}.");
         }
 
-        private static void Part2(List<string> input)
+        private static void Part2()
         {
-            List<BoardingPass> boardingPasses = ReadBoardingPasses(input);
+            List<BoardingPass> boardingPasses = ReadBoardingPasses();
 
             BoardingPass boardingPass = boardingPasses.Where(pass => !boardingPasses.Any(plusOne => plusOne.SeatId == pass.SeatId + 1) &&
                                                                 boardingPasses.Any(plusTwo => plusTwo.SeatId == pass.SeatId + 2)).FirstOrDefault();
@@ -55,13 +57,11 @@ namespace AdventOfCode2020
         }
 
 
-        public static void Start(string readFile)
+        public static void Start()
         {
-            List<string> input = File.ReadAllLines(readFile).ToList();
+            Part1();
 
-            Part1(input);
-
-            Part2(input);
+            Part2();
         }
     }
 }

@@ -1,2 +1,2 @@
-# AdventOfCode2020
-Another year, another try
+# Advent Of Code
+Another year, another try (and lots and lots of failures)

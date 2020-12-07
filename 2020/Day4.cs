@@ -1,13 +1,15 @@
-﻿using System;
+﻿using AdventOfCode.Helpers;
+using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace AdventOfCode2020
+namespace AdventOfCode._2020
 {
     public static class Day4
     {
+        private static List<string> Input => InputHelper.GetInputListString(2020, 4).ToList();
+
         public class Passport
         {
             public Dictionary<string, string> PassportData { get; set; } = new Dictionary<string, string>();
@@ -86,12 +88,12 @@ namespace AdventOfCode2020
             }
         }
 
-        public static List<Passport> LoadPassportData(List<string> input)
+        public static List<Passport> LoadPassportData()
         {
             List<Passport> result = new List<Passport>();
             Passport passport = new Passport();
 
-            foreach(string line in input)
+            foreach(string line in Input)
             {
                 if (string.IsNullOrEmpty(line))
                 {
@@ -114,9 +116,9 @@ namespace AdventOfCode2020
             return result;
         }
 
-        private static void Part1(List<string> input)
+        private static void Part1()
         {
-            List<Passport> passports = LoadPassportData(input);
+            List<Passport> passports = LoadPassportData();
 
             int validPassports = 0;
 
@@ -131,9 +133,9 @@ namespace AdventOfCode2020
             Console.WriteLine($"The amount of valid passports is {validPassports}");
         }
 
-        private static void Part2(List<string> input)
+        private static void Part2()
         {
-            List<Passport> passports = LoadPassportData(input);
+            List<Passport> passports = LoadPassportData();
 
             int validPassports = 0;
 
@@ -149,13 +151,11 @@ namespace AdventOfCode2020
         }
 
 
-        public static void Start(string readFile)
+        public static void Start()
         {
-            List<string> input = File.ReadAllLines(readFile).ToList();
+            Part1();
 
-            Part1(input);
-
-            Part2(input);
+            Part2();
         }
     }
 }

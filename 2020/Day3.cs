@@ -1,12 +1,14 @@
-﻿using System;
+﻿using AdventOfCode.Helpers;
+using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 
-namespace AdventOfCode2020
+namespace AdventOfCode._2020
 {
     public static class Day3
     {
+        private static List<string> Input => InputHelper.GetInputListString(2020, 3).ToList();
+
         public class MountainSlope
         {
             public char[,] TreeLocation { get; set; }
@@ -35,13 +37,13 @@ namespace AdventOfCode2020
             }
         }
 
-        public static char[,] LoadMountainSlope(char[,] mountainSlope, List<string> input)
+        public static char[,] LoadMountainSlope(char[,] mountainSlope)
         {
-            for (int i = 0; i < input.Count; i++)
+            for (int i = 0; i < Input.Count; i++)
             {
-                for (int j = 0; j < input[i].Length; j++)
+                for (int j = 0; j < Input[i].Length; j++)
                 {
-                    mountainSlope[i, j] = input[i][j];
+                    mountainSlope[i, j] = Input[i][j];
                 }
             }
 
@@ -90,15 +92,13 @@ namespace AdventOfCode2020
         }
 
 
-        public static void Start(string readFile)
+        public static void Start()
         {
-            List<string> input = File.ReadAllLines(readFile).ToList();
+            char[,] mountainSlope = new char[Input.Count, Input[0].Length];
+            mountainSlope = LoadMountainSlope(mountainSlope);
+            Part1(mountainSlope, Input.Count, Input[0].Length);
 
-            char[,] mountainSlope = new char[input.Count, input[0].Length];
-            mountainSlope = LoadMountainSlope(mountainSlope, input);
-            Part1(mountainSlope, input.Count, input[0].Length);
-
-            Part2(mountainSlope, input.Count, input[0].Length);
+            Part2(mountainSlope, Input.Count, Input[0].Length);
         }
     }
 }
