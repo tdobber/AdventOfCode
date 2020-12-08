@@ -12,9 +12,9 @@ namespace AdventOfCode._2018
 
             switch (day)
             {
-                //case 1:
-                //    script = script.Replace("_DAY", "1");
-                //    break;
+                case 1:
+                    Day1.Start();
+                    break;
 
                 //case 2:
                 //    Day2.Start();
