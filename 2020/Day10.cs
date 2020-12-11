@@ -9,17 +9,65 @@ namespace AdventOfCode._2020
     {
         private static List<int> Input => InputHelper.GetInputListInt(2020, 10).ToList();
 
+        private static bool CheckValidity(List<int> newTry)
+        {
+            for (int i = 0; i < newTry.Count - 1; i++)
+            {
+                if (newTry[i + 1] - newTry[i] > 3)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        private static int GetCombination(List<int> list, List<int> oneDiffRange)
+        {
+            HashSet<List<int>> triedPossibilities = new HashSet<List<int>>();
+            double count = Math.Pow(2, list.Count);
+
+            for (int i = 1; i <= count - 1; i++)
+            {
+                List<int> newTry = new List<int>();
+                string str = Convert.ToString(i, 2).PadLeft(list.Count, '0');
+                for (int j = 0; j < str.Length; j++)
+                {
+                    if (str[j] == '1')
+                    {
+                        newTry.Add(list[j]);
+                    }
+                }
+
+                newTry.Sort();
+
+                newTry.Insert(0, oneDiffRange[0]);
+                newTry.Add(oneDiffRange.Last());
+
+                if (!triedPossibilities.Contains(newTry) && CheckValidity(newTry))
+                {
+                    triedPossibilities.Add(newTry);
+                }
+            }
+
+            if (oneDiffRange.Count == 4)
+            {
+                triedPossibilities.Add(new List<int> { oneDiffRange[0], oneDiffRange.Last() });
+            }
+
+            return triedPossibilities.Count;
+        }
+
         private static int CheckPossibilities(List<int> oneDiffRange)
         {
-            int possibilities = 0;
+            if (oneDiffRange.Count == 3)
+            {
+                return 2;
+            }
 
-            // size 3 = 2
-            // size 4 = 4
-            // size 5 = 7
-            // size 6 = 12?
-            // size 7 = ??
+            List<int> toPermute = oneDiffRange.ToArray()[1..(oneDiffRange.Count - 1)].ToList();
 
-            return possibilities;
+            return GetCombination(toPermute, oneDiffRange);
         }
 
         private static void Part1()
@@ -106,7 +154,11 @@ namespace AdventOfCode._2020
                     oneDiffRange = adapters.ToArray()[i..(i + forwardIndex)].ToList();
                 }
 
-                possibilities *= CheckPossibilities(oneDiffRange);
+                if (oneDiffRange.Count > 2)
+                {
+                    possibilities *= CheckPossibilities(oneDiffRange);
+                }
+
                 i += forwardIndex - 1;
                 forwardIndex = 1;
             }
