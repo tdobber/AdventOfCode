@@ -110,39 +110,6 @@ namespace AdventOfCode._2020
             // input count + 1 is the same size (and 1 lower) than the original adapters size plus the 2 new ones
             for (int i = 0; i < adapters.Count - 1; i++)
             {
-                //if (i + 3 == adapters.Count || i + 2 == adapters.Count || adapters[i + 1] - adapters[i] == 0)
-                //{
-                //    break;
-                //}
-                //else if (adapters[i + 1] - adapters[i] < 3)
-                //{
-                //    if (adapters[i + 2] - adapters[i] <= 3)
-                //    {
-                //        possibilities++;
-                //    }
-
-                //    if (adapters[i + 3] - adapters[i] == 3)
-                //    {
-                //        possibilities++;
-                //    }
-
-                //    //possibilities++;
-                //}
-                //else if (adapters[i + 1] - adapters[i] == 3)
-                //{
-                //    continue;
-                //}
-                //else if (adapters[i + 3] - adapters[i] == 3)
-                //{
-                //    possibilities *= 4;
-                //    i += 2;
-                //}
-                //else if (adapters[i + 2] - adapters[i] <= 3)
-                //{
-                //    possibilities *= 2;
-                //    i++;
-                //}
-
                 while(adapters[i + forwardIndex] - adapters[i] == forwardIndex)
                 {
                     forwardIndex++;
