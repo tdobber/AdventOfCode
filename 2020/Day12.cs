@@ -14,8 +14,9 @@ namespace AdventOfCode._2020
             public int PositionX { get; set; }
             public int PositionY { get; set; }
             public int FacingDirection { get; set; } = 90;
+            public WayPoint WayPoint { get; set; } = new WayPoint();
 
-            public void Navigate()
+            public void NavigatePart1()
             {
                 foreach (string line in Input)
                 {
@@ -82,9 +83,115 @@ namespace AdventOfCode._2020
                     }
                 }
             }
+
+            public void NavigatePart2()
+            {
+                foreach (string line in Input)
+                {
+                    char action = line[0];
+                    int amount = int.Parse(line.Replace(action.ToString(), ""));
+
+                    int newX = 0;
+                    int newY = 0;
+
+                    switch (action)
+                    {
+                        case 'N':
+                            WayPoint.PositionY += amount;
+                            break;
+
+                        case 'E':
+                            WayPoint.PositionX += amount;
+                            break;
+
+                        case 'S':
+                            WayPoint.PositionY -= amount;
+                            break;
+
+                        case 'W':
+                            WayPoint.PositionX -= amount;
+                            break;
+
+                        case 'L':
+                            switch(amount)
+                            {
+                                case 90:
+                                    newX = -WayPoint.PositionY;
+                                    newY = WayPoint.PositionX;
+                                    WayPoint.PositionX = newX;
+                                    WayPoint.PositionY = newY;
+                                    break;
+
+                                case 180:
+                                    newX = -WayPoint.PositionX;
+                                    newY = -WayPoint.PositionY;
+                                    WayPoint.PositionX = newX;
+                                    WayPoint.PositionY = newY;
+                                    break;
+
+                                case 270:
+                                    newX = WayPoint.PositionY;
+                                    newY = -WayPoint.PositionX;
+                                    WayPoint.PositionX = newX;
+                                    WayPoint.PositionY = newY;
+                                    break;
+
+                                default:
+                                    Console.WriteLine("Left rotation should not happen");
+                                    break;
+                            }
+                            break;
+
+                        case 'R':
+                            switch (amount)
+                            {
+                                case 90:
+                                    newX = WayPoint.PositionY;
+                                    newY = -WayPoint.PositionX;
+                                    WayPoint.PositionX = newX;
+                                    WayPoint.PositionY = newY;
+                                    break;
+
+                                case 180:
+                                    newX = -WayPoint.PositionX;
+                                    newY = -WayPoint.PositionY;
+                                    WayPoint.PositionX = newX;
+                                    WayPoint.PositionY = newY;
+                                    break;
+
+                                case 270:
+                                    newX = -WayPoint.PositionY;
+                                    newY = WayPoint.PositionX;
+                                    WayPoint.PositionX = newX;
+                                    WayPoint.PositionY = newY;
+                                    break;
+
+                                default:
+                                    Console.WriteLine("Left rotation should not happen");
+                                    break;
+                            }
+                            break;
+
+                        case 'F':
+                            PositionX += WayPoint.PositionX * amount;
+                            PositionY += WayPoint.PositionY * amount;
+                            break;
+
+                        default:
+                            Console.WriteLine("Should not happen, debug please!");
+                            break;
+                    }
+                }
+            }
         }
 
-        private static int CalculateManhattanDistance(Ship ship)
+        public class WayPoint
+        {
+            public int PositionX { get; set; } = 10;
+            public int PositionY { get; set; } = 1;
+        }
+
+        private static double CalculateManhattanDistance(Ship ship)
         {
             return Math.Abs(ship.PositionX) + Math.Abs(ship.PositionY);
         }
@@ -92,13 +199,15 @@ namespace AdventOfCode._2020
         private static void Part1()
         {
             Ship ship = new Ship();
-            ship.Navigate();
+            ship.NavigatePart1();
             Console.WriteLine($"The manhattan distance after the instructions is {CalculateManhattanDistance(ship)}");
         }
 
         private static void Part2()
         {
-
+            Ship ship = new Ship();
+            ship.NavigatePart2();
+            Console.WriteLine($"The manhattan distance after the instructions is {CalculateManhattanDistance(ship)}");
         }
 
         public static void Start()
