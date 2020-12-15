@@ -1,4 +1,4 @@
-﻿using AdventOfCode.Helpers;
+using AdventOfCode.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,11 +11,34 @@ namespace AdventOfCode._2020
 
         private static void Part1()
         {
+            int firstPossibleDepartureTime = int.Parse(Input[0]);
+            List<int> busLines = new List<int>();
+            foreach(string bus in Input[1].Split(","))
+            {
+                switch(bus)
+                {
+                    case "x":
+                        break;
 
+                    default:
+                        busLines.Add(int.Parse(bus));
+                        break;
+                }
+            }
+
+            Dictionary<int, int> busTimes = new Dictionary<int, int>();
+            foreach (int bus in busLines)
+            {
+                busTimes[bus] = firstPossibleDepartureTime + bus - ((firstPossibleDepartureTime + bus) % bus);
+            }
+
+            int firstBus = busTimes.Aggregate((l, r) => l.Value < r.Value ? l : r).Key;
+            Console.WriteLine($"The first possible bus is line {firstBus} at {busTimes[firstBus]} (giving {firstBus * (busTimes[firstBus] - firstPossibleDepartureTime)})");
         }
 
         private static void Part2()
         {
+<<<<<<< HEAD
             string[] bus = Input[1].Split(",");
             long time = 0;
             long inc = long.Parse(bus[0]);
@@ -37,6 +60,9 @@ namespace AdventOfCode._2020
             }
 
             Console.WriteLine($"The earliest timestamp such that all of the listed bus IDs depart at offsets matching their positions in the list is {time}");
+=======
+
+>>>>>>> c73f6cd... Solution day 13 part 1
         }
 
         public static void Start()
