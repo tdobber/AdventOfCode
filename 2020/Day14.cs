@@ -15,6 +15,37 @@ namespace AdventOfCode._2020
             public Dictionary<long, long> Memory { get; set; } = new Dictionary<long, long>();
         }
 
+        private static HashSet<string> GetCombinations(string address)
+        {
+            HashSet<string> addresses = new HashSet<string>();
+            int xCount = address.Count(c => c == 'X');
+            double count = Math.Pow(2, xCount);
+
+            for (int i = 0; i <= count - 1; i++)
+            {
+                string newAddress = "";
+                List<int> newTry = new List<int>();
+                string combination = Convert.ToString(i, 2).PadLeft(xCount, '0');
+
+                foreach(char c in address)
+                {
+                    if (c == 'X')
+                    {
+                        newAddress += combination[0];
+                        combination = combination.Remove(0, 1);
+                    }
+                    else
+                    {
+                        newAddress += c;
+                    }
+                }
+
+                addresses.Add(newAddress);
+            }
+
+            return addresses;
+        }
+
         private static void Part1()
         {
             InitializationProgram program = new InitializationProgram();
@@ -77,7 +108,7 @@ namespace AdventOfCode._2020
                     Match match = Regex.Match(splitted[0], @"^mem\[(?<address>\d+)\]$");
                     long address = long.Parse(match.Groups["address"].Value);
                     string addressBit = Convert.ToString(address, 2).PadLeft(36, '0');
-                    string value = Convert.ToString(long.Parse(splitted[1]), 2).PadLeft(36, '0');
+                    long value = long.Parse(splitted[1]);
                     string newAddress = "";
 
                     for (int i = 0; i < 36; i++)
@@ -97,17 +128,24 @@ namespace AdventOfCode._2020
                         }
                     }
 
-                    //if (!program.Memory.ContainsKey(address))
-                    //{
-                    //    program.Memory.Add(address, Convert.ToInt64(newValue, 2));
-                    //}
-                    //else
-                    //{
-                    //    program.Memory[address] = Convert.ToInt64(newValue, 2);
-                    //}
+                    HashSet<string> addresses = GetCombinations(newAddress);
+
+                    foreach(string combinationAddress in addresses)
+                    {
+                        long key = Convert.ToInt64(combinationAddress, 2);
+                        if (!program.Memory.ContainsKey(key))
+                        {
+                            program.Memory.Add(key, value);
+                        }
+                        else
+                        {
+                            program.Memory[key] = value;
+                        }
+                    }
                 }
             }
 
+            // 495297496345 too low
             Console.WriteLine($"The sum of all values left in memory after the program completes is {program.Memory.Sum(x => x.Value)}");
         }
 
