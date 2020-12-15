@@ -38,7 +38,6 @@ namespace AdventOfCode._2020
 
         private static void Part2()
         {
-<<<<<<< HEAD
             string[] bus = Input[1].Split(",");
             long time = 0;
             long inc = long.Parse(bus[0]);
@@ -60,9 +59,6 @@ namespace AdventOfCode._2020
             }
 
             Console.WriteLine($"The earliest timestamp such that all of the listed bus IDs depart at offsets matching their positions in the list is {time}");
-=======
-
->>>>>>> c73f6cd... Solution day 13 part 1
         }
 
         public static void Start()
