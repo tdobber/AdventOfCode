@@ -162,7 +162,6 @@ namespace AdventOfCode._2020
                 }
             }
 
-            // 201600 too low.
             Console.WriteLine($"The multiplication of those six 'departure' values together is {answer}.");
         }
 
