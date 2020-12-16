@@ -116,6 +116,7 @@ namespace AdventOfCode._2020
                         switch (mask[i])
                         {
                             case '0':
+                                newAddress += addressBit[i];
                                 break;
 
                             case '1':
@@ -145,7 +146,6 @@ namespace AdventOfCode._2020
                 }
             }
 
-            // 495297496345 too low
             Console.WriteLine($"The sum of all values left in memory after the program completes is {program.Memory.Sum(x => x.Value)}");
         }
 
