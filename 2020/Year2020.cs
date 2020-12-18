@@ -73,7 +73,13 @@ namespace AdventOfCode._2020
                     break;
 
                 case 17:
+                    Day17.Start();
+                    break;
+
                 case 18:
+                    Day18.Start();
+                    break;
+
                 case 19:
                 case 20:
                 case 21:
